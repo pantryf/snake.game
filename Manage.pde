@@ -5,7 +5,7 @@ void Init()
   PImage headImg = loadImage("head.jpg");
   PImage bodyImg = loadImage("body.jpg");
   PImage tailImg = loadImage("tail.jpg");
-  Viper = new Snake(headImg, bodyImg, tailImg, 10, 100);
+  Viper = new Snake(headImg, bodyImg, tailImg, 100, 10, 100);
   Viper.Init(300, 100, 0, 10, 0, 0);
 }
 

@@ -20,9 +20,9 @@ class Snake
     Angle = new float[maxSize];
   }
   
-  void X() { return PosX[Head]; }
-  void Y() { return PosY[Head]; }
-  void Angle() { return Angle[Head]; }
+  float X() { return PosX[Head]; }
+  float Y() { return PosY[Head]; }
+  float Angle() { return Angle[Head]; }
   
   void Init(float posX, float posY, float angle, float gapX, float gapY, float gapAngle)
   {
@@ -55,8 +55,6 @@ class Snake
     GapY[0] = -moveY;
     Angle = angle;
     */
-    X += moveX;
-    Y += moveY;
   }
   
   void Draw()
