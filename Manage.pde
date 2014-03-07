@@ -1,4 +1,6 @@
 Snake Viper;
+float speed = 0;
+float angle = 0;
 
 void Init()
 {
@@ -6,18 +8,21 @@ void Init()
   PImage bodyImg = loadImage("body.jpg");
   PImage tailImg = loadImage("tail.jpg");
   Viper = new Snake(headImg, bodyImg, tailImg, 100, 10, 100);
-  Viper.Init(300, 100, 0, 1, 0, 0);
+  Viper.Init(300, 100, 0, -1, 0, 0);
   // log_Write(Viper.PosX);
 }
 
 void Update()
 {
-  float xMove = mouseX - Viper.X();
-  float yMove = mouseY - Viper.Y();
-  float angle = atan2(yMove, xMove);
-  xMove = xMove / 50;
-  yMove = yMove / 50;
-  if(mousePressed) Viper.Move(xMove, yMove, angle);
+  if(keyPressed)
+  {
+    if(key == 'w') speed = constrain(speed + 0.1, 0, 5);
+    if(key == 's') speed = constrain(speed - 0.1, 0, 5);
+    if(key == 'a') angle -= 0.04;
+    if(key == 'd') angle += 0.04;
+  }
+  if(speed > 0) Viper.Move(speed, angle);
   Viper.Draw();
 }
+
 

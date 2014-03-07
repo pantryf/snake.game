@@ -53,13 +53,13 @@ class Snake
     drawBlock(HeadImg, 0);
   }
   
-  void Move(float moveX, float moveY, float angle)
+  void Move(float speed, float angle)
   {
     arrayCopy(PosX, 0, PosX, 1, PosX.length-1);
     arrayCopy(PosY, 0, PosY, 1, PosY.length-1);
     arrayCopy(Angle, 0, Angle, 1, Angle.length-1);
-    PosX[0] = PosX[1] + moveX;
-    PosY[0] = PosY[1] + moveY;
+    PosX[0] = PosX[1] + speed * cos(angle);
+    PosY[0] = PosY[1] + speed * sin(angle);
     Angle[0] = angle;
   }
 }
