@@ -15,8 +15,6 @@ void Update()
   float yMove = mouseY - 240;
   float dist = -10;
   float angle = atan2(yMove, xMove);
-  // Viper.Move(dist, 0);
-  Viper.Draw();
   rect(320, 240, 10, 10);
 }
 
