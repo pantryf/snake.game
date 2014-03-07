@@ -61,19 +61,10 @@ class Snake
   
   void Draw()
   {
-    pushMatrix();
-    translate(X, Y);
-    rotate(Angle);
-    for(int i=0; i<Size; i++)
+    for(int i=0, ptr=Head; i<Size; i++, ptr=(ptr+1)&PosX.length)
     {
-      if(i == 0) img = HeadImg;
-      else if(i == Size-1) img = TailImg;
-      else img = BodyImg;
-      image(img, 0, 0);
-      translate(GapX[i], GapY[i]);
-      rotate(GapAngle[i]);
+      
     }
-    popMatrix();
   }
 }
 

@@ -11,7 +11,6 @@ void Init()
 
 void Update()
 {
-  Viper.Init(mouseX, mouseY, 0, 10 + (frameCount/10) % 10, 0, ((frameCount/10) % 10) * 0.05);
   float xMove = mouseX - 320;
   float yMove = mouseY - 240;
   float dist = -10;
