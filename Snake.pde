@@ -57,7 +57,6 @@ class Snake
     */
     X += moveX;
     Y += moveY;
-    println("X = " + X + ", Y = " + Y + ", Angle = " + Angle);
   }
   
   void Draw()
