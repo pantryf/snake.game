@@ -1,32 +1,30 @@
 class Snake
 {
-  int Head;
   PImage HeadImg;
   PImage BodyImg;
   PImage TailImg;
   int Size, Block;
-  float[] PosX, PosY, Angle;
+  int[] PosX, PosY;
+  float[] Angle;
   
-  Snake(PImage headImg, PImage bodyImg, PImage tailImg, int size, int block, int maxSize)
+  public Snake(PImage headImg, PImage bodyImg, PImage tailImg, int size, int block, int maxSize)
   {
-    Head = 0;
     Size = size;
     Block = block;
     HeadImg = headImg;
     BodyImg = bodyImg;
     TailImg = tailImg;
-    PosX = new float[maxSize];
-    PosY = new float[maxSize];
+    PosX = new int[maxSize];
+    PosY = new int[maxSize];
     Angle = new float[maxSize];
   }
   
-  float X() { return PosX[Head]; }
-  float Y() { return PosY[Head]; }
-  float Angle() { return Angle[Head]; }
+  public float X() { return PosX[0]; }
+  public float Y() { return PosY[0]; }
+  public float Angle() { return Angle[0]; }
   
-  void Init(float posX, float posY, float angle, float gapX, float gapY, float gapAngle)
+  public void Init(int posX, int posY, float angle, int gapX, int gapY, float gapAngle)
   {
-    Head = 0;
     for(int i=0; i<Size; i++)
     {
       PosX[i] = posX;
@@ -38,31 +36,26 @@ class Snake
     }
   }
   
-  void Move(float moveX, float moveY)
+  private void drawBlock(PImage img, int ptr)
   {
-    // move body back
-    /*
-    for(int i=Size-1; i>0; i--)
-    {
-      GapX[i-1] = GapX[i];
-      GapY[i-1] = GapY[i];
-      GapAngle[i-1] = GapAngle[i];
-    }
-    // update new gap
-    float angle = atan2(moveY, moveX);
-    GapAngle[0] = - (angle - Angle);
-    GapX[0] = -moveX;
-    GapY[0] = -moveY;
-    Angle = angle;
-    */
+    pushMatrix();
+    translate(PosX[ptr], PosY[ptr]);
+    rotate(Angle[ptr]);
+    image(img, 0, 0);
+    popMatrix();
   }
   
-  void Draw()
+  public void Draw()
   {
-    for(int i=0, ptr=Head; i<Size; i++, ptr=(ptr+1)&PosX.length)
-    {
-      
-    }
+    drawBlock(HeadImg, 0);
+    for(int i=Block; i<Size; i+=Block)
+      drawBlock(BodyImg, i);
+    drawBlock(TailImg, PosX.length-1);
+  }
+  
+  void Move(int moveX, int moveY, float angle, int speed)
+  {
+    
   }
 }
 

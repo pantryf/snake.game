@@ -9,6 +9,7 @@ void setup()
 {
   size(640, 480);
   rectMode(CENTER);
+  imageMode(CENTER);
   Init();
 }
 
