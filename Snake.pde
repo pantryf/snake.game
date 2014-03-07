@@ -1,42 +1,47 @@
 class Snake
 {
-  int Size;
-  float X, Y, Angle;
-  
+  int Head;
   PImage HeadImg;
   PImage BodyImg;
   PImage TailImg;
-  float[] GapX, GapY, GapAngle;
+  int Size, Block;
+  float[] PosX, PosY, Angle;
   
-  Snake(PImage headImg, PImage bodyImg, PImage tailImg, int size, int maxSize)
+  Snake(PImage headImg, PImage bodyImg, PImage tailImg, int size, int block, int maxSize)
   {
+    Head = 0;
     Size = size;
+    Block = block;
     HeadImg = headImg;
     BodyImg = bodyImg;
     TailImg = tailImg;
-    // maxSize = max possible size of snake
-    GapX = new float[maxSize];
-    GapY = new float[maxSize];
-    GapAngle = new float[maxSize];
+    PosX = new float[maxSize];
+    PosY = new float[maxSize];
+    Angle = new float[maxSize];
   }
   
-  void Init(float x, float y, float angle, float gapX, float gapY, float gapAngle)
+  void X() { return PosX[Head]; }
+  void Y() { return PosY[Head]; }
+  void Angle() { return Angle[Head]; }
+  
+  void Init(float posX, float posY, float angle, float gapX, float gapY, float gapAngle)
   {
-    X = x;
-    Y = y;
-    Angle = angle;
-    // relative translate and rotate
+    Head = 0;
     for(int i=0; i<Size; i++)
     {
-      GapX[i] = gapX;
-      GapY[i] = gapY;
-      GapAngle[i] = gapAngle;
+      PosX[i] = posX;
+      PosY[i] = posY;
+      Angle[i] = angle;
+      posX += gapX;
+      posY += gapY;
+      angle += gapAngle;
     }
   }
   
   void Move(float moveX, float moveY)
   {
     // move body back
+    /*
     for(int i=Size-1; i>0; i--)
     {
       GapX[i-1] = GapX[i];
@@ -49,6 +54,7 @@ class Snake
     GapX[0] = -moveX;
     GapY[0] = -moveY;
     Angle = angle;
+    */
     X += moveX;
     Y += moveY;
     println("X = " + X + ", Y = " + Y + ", Angle = " + Angle);
@@ -56,11 +62,10 @@ class Snake
   
   void Draw()
   {
-    PImage img;
     pushMatrix();
     translate(X, Y);
     rotate(Angle);
-    for(int i=Size-1; i>=0; i--)
+    for(int i=0; i<Size; i++)
     {
       if(i == 0) img = HeadImg;
       else if(i == Size-1) img = TailImg;

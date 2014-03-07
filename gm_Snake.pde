@@ -8,7 +8,6 @@
 void setup()
 {
   size(640, 480);
-  frameRate(1);
   rectMode(CENTER);
   Init();
 }
