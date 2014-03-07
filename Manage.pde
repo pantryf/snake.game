@@ -7,16 +7,17 @@ void Init()
   PImage tailImg = loadImage("tail.jpg");
   Viper = new Snake(headImg, bodyImg, tailImg, 100, 10, 100);
   Viper.Init(300, 100, 0, 1, 0, 0);
-  log_Write(Viper.PosX);
+  // log_Write(Viper.PosX);
 }
 
 void Update()
 {
-  float xMove = mouseX - 320;
-  float yMove = mouseY - 240;
-  float dist = -10;
+  float xMove = mouseX - Viper.X();
+  float yMove = mouseY - Viper.Y();
   float angle = atan2(yMove, xMove);
-  rect(320, 240, 10, 10);
+  xMove = xMove / 50;
+  yMove = yMove / 50;
+  if(mousePressed) Viper.Move(xMove, yMove, angle);
   Viper.Draw();
 }
 

@@ -4,7 +4,7 @@ class Snake
   PImage BodyImg;
   PImage TailImg;
   int Size, Block;
-  int[] PosX, PosY;
+  float[] PosX, PosY;
   float[] Angle;
   
   public Snake(PImage headImg, PImage bodyImg, PImage tailImg, int size, int block, int maxSize)
@@ -14,8 +14,8 @@ class Snake
     HeadImg = headImg;
     BodyImg = bodyImg;
     TailImg = tailImg;
-    PosX = new int[maxSize];
-    PosY = new int[maxSize];
+    PosX = new float[maxSize];
+    PosY = new float[maxSize];
     Angle = new float[maxSize];
   }
   
@@ -23,7 +23,7 @@ class Snake
   public float Y() { return PosY[0]; }
   public float Angle() { return Angle[0]; }
   
-  public void Init(int posX, int posY, float angle, int gapX, int gapY, float gapAngle)
+  public void Init(float posX, float posY, float angle, float gapX, float gapY, float gapAngle)
   {
     for(int i=0; i<Size; i++)
     {
@@ -47,15 +47,20 @@ class Snake
   
   public void Draw()
   {
-    drawBlock(HeadImg, 0);
     for(int i=Block; i<Size; i+=Block)
       drawBlock(BodyImg, i);
     drawBlock(TailImg, PosX.length-1);
+    drawBlock(HeadImg, 0);
   }
   
-  void Move(int moveX, int moveY, float angle, int speed)
+  void Move(float moveX, float moveY, float angle)
   {
-    
+    arrayCopy(PosX, 0, PosX, 1, PosX.length-1);
+    arrayCopy(PosY, 0, PosY, 1, PosY.length-1);
+    arrayCopy(Angle, 0, Angle, 1, Angle.length-1);
+    PosX[0] = PosX[1] + moveX;
+    PosY[0] = PosY[1] + moveY;
+    Angle[0] = angle;
   }
 }
 
