@@ -1,7 +1,7 @@
 class Food
 {
+  int X, Y;
   color Clr;
-  int X, int Y;
   int Weight;
   
   
@@ -18,11 +18,11 @@ class Food
   {
     noStroke();
     fill(Clr);
-    ellipse(X, Y, Weight);
+    ellipse(X, Y, Weight, Weight);
   }
   
   
-  public Dist(int x, int y)
+  public int Dist(int x, int y)
   { return abs(x - X) + abs(y - Y); }
 }
 

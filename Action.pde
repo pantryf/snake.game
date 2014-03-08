@@ -1,21 +1,26 @@
 Snake Viper;
+Food Mango;
 int Score; 
 
 void Init()
 {
   Viper = new Snake(color(220), color(180), 10, 100, 5);
   Viper.Init(300, 100, -1, 0);
-  Viper.Draw();
+  Mango = new Food(color(240, 240, 120), (int) random(10, 630), (int) random(10, 470), 20);
 }
 
 void Update()
 {
-  int moveX = mouseX - pmouseX;
-  int moveY = mouseY - pmouseY;
-  if(moveX != 0 || moveY != 0) Viper.Move(Viper.HeadX() + moveX, Viper.HeadY() + moveY);
-  Viper.Draw();
+  if(mouseX != pmouseX || mouseY != pmouseY) Viper.Move(mouseX, mouseY);
   if(mousePressed) Viper.Grow(1);
-  Score = frameCount;
+  Viper.Draw();
+  if(Mango.Dist(Viper.HeadX(), Viper.HeadY()) < Mango.Weight)
+  {
+    Score++;
+    Viper.Grow(Viper.Block);
+    Mango = new Food(color(240, 240, 120), (int) random(10, 630), (int) random(10, 470), 20);
+  }
+  Mango.Draw();
   Viper.BodyClr = (Viper.TailDist(Viper.HeadX(), Viper.HeadY()) < 10)? color(240, 100, 100) : color(180);
   ShowScore();
 }
