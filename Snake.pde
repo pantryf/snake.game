@@ -56,7 +56,8 @@ class Snake
     endShape();
     // head
     fill(HeadClr);
-    ellipse(NodeX[Head], NodeY[Head], 2*Weight, 2*Weight);
+    strokeWeight(Weight);
+    ellipse(NodeX[Head], NodeY[Head], Weight, Weight);
   }
   public void Draw() { Draw(Block); }
   
