@@ -3,7 +3,7 @@ class Snake
   int[] NodeX, NodeY;
   int Head, Size, Block, Weight;
   color HeadClr, BodyClr; 
-  final int MaxSize = 512;
+  final int MaxSize = 1024;
   final int MaxIndx = MaxSize - 1;
   
   
@@ -73,6 +73,8 @@ class Snake
   public void Grow(int amt)
   {
     Size += amt;
+    Size = (Size > MaxSize)? MaxSize : Size;
+    Size = (Size < 1)? 1 : Size;
   }
   
   
