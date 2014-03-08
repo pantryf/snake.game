@@ -26,6 +26,7 @@ class Snake
   public int TailX() { return NodeX[Tail()]; }
   public int TailY() { return NodeX[Tail()]; }
 
+
   public void Init(int posX, int posY, int gapX, int gapY)
   {
     Head = 0;
@@ -39,7 +40,7 @@ class Snake
   }
   
   
-  public void Draw()
+  public void Draw(int block)
   {
     // body
     int ptr = Head;
@@ -47,19 +48,20 @@ class Snake
     stroke(BodyClr);
     strokeWeight(Weight);
     beginShape(LINES);
-    for(int i=0; i<Size; i+=Block)
+    for(int i=0; i<Size; i+=block)
     {
       vertex(NodeX[ptr], NodeY[ptr]);
-      ptr = (ptr+Block) & MaxIndx;
+      ptr = (ptr+block) & MaxIndx;
     }
     endShape();
     // head
     fill(HeadClr);
     ellipse(NodeX[Head], NodeY[Head], 2*Weight, 2*Weight);
   }
+  public void Draw() { Draw(Block); }
   
 
-  void Move(int x, int y)
+  public void Move(int x, int y)
   {
     Head = (Head-1) & MaxIndx;
     NodeX[Head] = x;
@@ -67,9 +69,28 @@ class Snake
   }
   
   
-  void Grow(int amt)
+  public void Grow(int amt)
   {
     Size += amt;
+  }
+  
+  
+  public int HeadDist(int x, int y)
+  { return abs(x - NodeX[Head]) + abs(y - NodeY[Head]); }
+  
+  public int TailDist(int x, int y)
+  { return abs(x - NodeX[Tail()]) + abs(y - NodeY[Tail()]); }
+  
+  public int BodyDist(int x, int y, int block)
+  {
+    int minDist = HeadDist(x, y);
+    int ptr = (Head+block) & MaxIndx;
+    for(int i=block; i<Size; i++)
+    {
+      int dist = abs(x - NodeX[ptr]) + abs(y - NodeY[ptr]);
+      if(dist < minDist) minDist = dist;
+    }
+    return minDist;
   }
 }
 
