@@ -23,7 +23,13 @@ wish to introduce into this game.
 
 ### Single Player
 
+1.  Snake need not move continuously, and can stay if it likes.
 
+2.  The food does not have to be static (it may move).
+
+3.  There may not be just one snake alone (multiple opponents).
+
+4.  The game-play should not be story-based (round-based).
 
 
 
