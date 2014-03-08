@@ -1,4 +1,5 @@
 Snake Viper;
+int Score; 
 
 void Init()
 {
@@ -14,8 +15,17 @@ void Update()
   if(moveX != 0 || moveY != 0) Viper.Move(Viper.HeadX() + moveX, Viper.HeadY() + moveY);
   Viper.Draw();
   if(mousePressed) Viper.Grow(1);
+  Score = frameCount;
+  Viper.BodyClr = (Viper.TailDist(Viper.HeadX(), Viper.HeadY()) < 10)? color(240, 100, 100) : color(180);
+  ShowScore();
 }
 
+void ShowScore()
+{
+  textAlign(RIGHT, CENTER);
+  textSize(24);
+  text(Score, 630, 20);
+}
 /*
 void log_Write(int[] arr)
 {

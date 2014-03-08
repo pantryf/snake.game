@@ -93,5 +93,7 @@ class Snake
     }
     return minDist;
   }
+  public int BodyDist(int x, int y) { return BodyDist(x, y, Block); }
+  
 }
 
