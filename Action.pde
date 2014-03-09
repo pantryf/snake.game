@@ -1,44 +1,54 @@
-Snake Viper;
-Food Mango;
-int Score; 
+snake Snake;
+food Food;
+int MoveSpeed = 10;
+int Score;
+int MoveDir;
 
-void Init()
+
+void action_Init()
 {
-  Viper = new Snake(color(160, 220, 160), color(150, 200, 150), 10, 100, 5);
-  Viper.Init(300, 100, -1, 0);
-  Mango = new Food(color(240, 240, 120), (int) random(10, 630), (int) random(10, 470), 20);
+  MoveDir = 0;
+  Snake = new snake(color(220, 160, 160), color(150, 200, 150), 10);
+  Snake.Init(300, 100, MoveDir);
+  Food = new food(100, 100);
 }
 
-void Update()
+
+void action_Update()
 {
-  if(mouseX != pmouseX || mouseY != pmouseY) Viper.Move(mouseX, mouseY);
-  if(mousePressed) Viper.Grow(1);
-  Viper.Draw();
-  if(Mango.Dist(Viper.HeadX(), Viper.HeadY()) < Mango.Weight)
-  {
-    Score++;
-    Viper.Grow(Viper.Block);
-    Mango = new Food(color(240, 240, 120), (int) random(10, 630), (int) random(10, 470), 20);
-  }
-  Mango.Draw();
-  Viper.BodyClr = (Viper.TailDist(Viper.HeadX(), Viper.HeadY()) < 10)? color(240, 100, 100) : color(150, 200, 150);
-  ShowScore();
+  if(frameCount % MoveSpeed == 0)
+    Snake.Move(MoveDir);
+  Snake.Draw();
+  Food.Draw();
+  action_Menu();
 }
 
-void ShowScore()
+
+void action_Menu()
 {
   fill(220);
   textAlign(RIGHT, CENTER);
   textSize(24);
   text(Score, 630, 20);
   textAlign(LEFT, CENTER);
-  text("Snake v0.1", 5, 20);
+  text("Snake 0.2", 5, 20);
 }
-/*
-void log_Write(int[] arr)
+
+
+void keyPressed()
 {
-  for(int i=0; i<arr.length; i++)
-    print(arr[i] + "|");
-  println();
+  char inp = key;
+  inp = (inp >= 'A' && inp <= 'Z')? (char) (inp - 'A' + 'a') : inp;
+  switch(inp)
+  {
+    case 'w':
+    MoveDir = 3; break;
+    case 's':
+    MoveDir = 1; break;
+    case 'a':
+    MoveDir = 2; break;
+    case 'd':
+    MoveDir = 0; break;
+  }
 }
-*/
+

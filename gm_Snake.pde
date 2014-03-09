@@ -4,18 +4,21 @@
  * A game that involves a snake and its food.
  * 
  */
+PImage abc;
 void setup()
 {
-  size(640, 480);
+  size(800, 600);
   rectMode(CENTER);
   imageMode(CENTER);
-  Init();
+  action_Init();
+  abc = loadImage("snake_bg_edges.jpg");
 }
 
 
 void draw()
 {
-  background(0);
-  Update();
+  // background(0);
+  image(abc, 400, 300);
+  action_Update();
 }
 

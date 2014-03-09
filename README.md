@@ -23,9 +23,9 @@ wish to introduce into this game.
 
 ### Single Player
 
-1.  Snake need not move continuously, and can stay if it likes.
+1.  Snake need move continuously, and cant stay if it likes.
 
-2.  The food does not have to be static (it may move).
+2.  The food will be static as of now, but many at a time.
 
 3.  There may not be just one snake alone (multiple opponents).
 
@@ -38,7 +38,13 @@ wish to introduce into this game.
 Snake
 -----
 
-
+Simple snake in begining. Can take out its tongue sometimes, and for food and
+for heat scan other snakes and food. Can get partly or fully eaten by another
+snake. head bangs, snake eats, etc. part visibility. blockage, footprint viewer.
+lightning effects as per level. light sources. including head. score list,
+players, opponents. team cobra vs rattlesnake. different structures,
+complicated, we need images, makes code easier to handle. level blockers /
+objects. should the game background color be black?
 
 
 

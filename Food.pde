@@ -1,28 +1,38 @@
-class Food
+class food
 {
   int X, Y;
-  color Clr;
-  int Weight;
+  final int Score = 1;
+  final int Weight = 8;
   
   
-  public Food(color clr, int x, int y, int weight)
+  public food(int x, int y)
   {
     X = x;
     Y = y;
-    Clr = clr;
-    Weight = weight;
   }
   
   
   public void Draw()
   {
-    noStroke();
-    fill(Clr);
-    ellipse(X, Y, Weight, Weight);
+    stroke(128);
+    strokeWeight(1);
+    int frame = (frameCount & 0x7F) << 1;
+    fill(abs(128 - frame));
+    rect(X, Y, Weight, Weight);
   }
   
   
-  public int Dist(int x, int y)
-  { return abs(x - X) + abs(y - Y); }
+  public boolean Touch(int x, int y)
+  { return (X == x) && (Y == y); }
+}
+
+
+class rat extends food
+{
+  final int Score = 2;
+  public rat(int x, int y)
+  {
+    super(x, y);
+  }
 }
 

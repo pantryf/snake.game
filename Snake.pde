@@ -1,102 +1,101 @@
-class Snake
+class snake
 {
   int[] NodeX, NodeY;
-  int Head, Size, Block, Weight;
+  int Head, Size, Dir;
   color HeadClr, BodyClr; 
-  final int MaxSize = 1024;
+  final int Weight = 10;
+  final int MaxSize = 256;
   final int MaxIndx = MaxSize - 1;
+  final int[] StepX = {Weight, 0, -Weight, 0};
+  final int[] StepY = {0, Weight, 0, -Weight};
   
-  
-  public Snake(color headClr, color bodyClr, int weight, int size, int block)
+  public snake(color headClr, color bodyClr, int size)
   {
+    Dir = 0;
     Head = 0;
     Size = size;
-    Block = block;
-    Weight = weight;
     HeadClr = headClr;
     BodyClr = bodyClr;
     NodeX = new int[MaxSize];
     NodeY = new int[MaxSize];
   }
-
-
+  
+  
   public int Tail() { return (Head+Size-1) & MaxIndx; }
   public int HeadX() { return NodeX[Head]; }
   public int HeadY() { return NodeY[Head]; }
   public int TailX() { return NodeX[Tail()]; }
   public int TailY() { return NodeX[Tail()]; }
-
-
-  public void Init(int posX, int posY, int gapX, int gapY)
+  
+  
+  public void Init(int posX, int posY, int dir)
   {
     Head = 0;
+    dir ^= 2;
     for(int i=0; i<Size; i++)
     {
       NodeX[i] = posX;
       NodeY[i] = posY;
-      posX += gapX;
-      posY += gapY;
+      posX = (posX + StepX[dir]) % width;
+      posY = (posY + StepY[dir]) % height;
     }
   }
   
   
-  public void Draw(int block)
+  public void Draw()
   {
     // body
-    int ptr = Head;
-    noFill();
-    stroke(BodyClr);
-    strokeWeight(Weight);
-    beginShape(LINES);
-    for(int i=0; i<Size; i+=block)
+    noStroke();
+    fill(BodyClr);
+    int ptr = (Head+1) & MaxIndx;
+    for(int i=1; i<Size; i++)
     {
-      vertex(NodeX[ptr], NodeY[ptr]);
-      ptr = (ptr+block) & MaxIndx;
+      ellipse(NodeX[ptr], NodeY[ptr], Weight, Weight);
+      ptr = (ptr+1) & MaxIndx;
     }
-    endShape();
     // head
+    pushMatrix();
     fill(HeadClr);
-    stroke(HeadClr);
-    strokeWeight(Weight);
-    ellipse(NodeX[Head], NodeY[Head], Weight, Weight);
+    translate(HeadX(), HeadY());
+    rotate(HALF_PI * Dir);
+    ellipse(0, 0, 1.5*Weight, 1.5*Weight);
+    fill(0);
+    rect(0.3*Weight, +0.5*Weight, 2, 2);
+    rect(0.3*Weight, -0.5*Weight, 2, 2);
+    popMatrix();
   }
-  public void Draw() { Draw(Block); }
   
 
-  public void Move(int x, int y)
+  public void Move(int dir)
   {
+    Dir = ((Dir & 1) != (dir & 1))? dir : Dir;
+    int newX = HeadX() + StepX[Dir];
+    int newY = HeadY() + StepY[Dir];
     Head = (Head-1) & MaxIndx;
-    NodeX[Head] = x;
-    NodeY[Head] = y;
+    NodeX[Head] = (newX + width) % width;
+    NodeY[Head] = (newY + height) % height;
   }
   
   
   public void Grow(int amt)
+  { Size = (int) constrain(Size + amt, 2, MaxSize); }
+  
+  
+  public boolean HeadTouch(int x, int y)
   {
-    Size += amt;
-    Size = (Size > MaxSize)? MaxSize : Size;
-    Size = (Size < 1)? 1 : Size;
+    return (HeadX() == x) && (HeadY() == y); 
   }
   
   
-  public int HeadDist(int x, int y)
-  { return abs(x - NodeX[Head]) + abs(y - NodeY[Head]); }
-  
-  public int TailDist(int x, int y)
-  { return abs(x - NodeX[Tail()]) + abs(y - NodeY[Tail()]); }
-  
-  public int BodyDist(int x, int y, int block)
+  public int BodyTouch(int x, int y)
   {
-    int minDist = HeadDist(x, y);
-    int ptr = (Head+block) & MaxIndx;
-    for(int i=block; i<Size; i++)
+    int ptr = (Head+1) & MaxIndx;
+    for(int i=1; i<Size; i++)
     {
-      int dist = abs(x - NodeX[ptr]) + abs(y - NodeY[ptr]);
-      if(dist < minDist) minDist = dist;
+      if((NodeX[ptr] == x) && (NodeY[ptr] == y)) return i;
+      ptr = (ptr+1) & MaxIndx;
     }
-    return minDist;
+    return -1;
   }
-  public int BodyDist(int x, int y) { return BodyDist(x, y, Block); }
-  
 }
 
