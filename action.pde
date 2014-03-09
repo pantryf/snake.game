@@ -1,8 +1,9 @@
 snake Snake;
 food Food;
-int MoveSpeed = 10;
 int Score;
 int MoveDir;
+int MoveSpeed = 10;
+
 
 void action_Init()
 {
@@ -10,12 +11,6 @@ void action_Init()
   Snake = new snake(color(220, 160, 160), color(150, 200, 150), 10);
   Snake.Init(300, 100, MoveDir);
   Food = new food(100, 100);
-}
-
-
-void action_MainMenu()
-{
-  if(MainBckImg == null) MainBckImg = loadImage("");
 }
 
 

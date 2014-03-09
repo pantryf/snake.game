@@ -1,3 +1,3 @@
-PImage MainMenuImg;
-final String MainMenuImgFile = "";
+PImage menu_MainImg;
+final String menu_MainImgFile = "";
 
