@@ -8,7 +8,7 @@ class snake
   final int MaxIndx = MaxSize - 1;
   final int[] StepX = {Weight, 0, -Weight, 0};
   final int[] StepY = {0, Weight, 0, -Weight};
-  
+  // draw snake tongue
   public snake(color headClr, color bodyClr, int size)
   {
     Dir = 0;
@@ -20,13 +20,11 @@ class snake
     NodeY = new int[MaxSize];
   }
   
-  
   public int Tail() { return (Head+Size-1) & MaxIndx; }
   public int HeadX() { return NodeX[Head]; }
   public int HeadY() { return NodeY[Head]; }
   public int TailX() { return NodeX[Tail()]; }
   public int TailY() { return NodeX[Tail()]; }
-  
   
   public void Init(int posX, int posY, int dir)
   {
@@ -40,7 +38,6 @@ class snake
       posY = (posY + StepY[dir]) % height;
     }
   }
-  
   
   public void Draw()
   {
@@ -65,7 +62,6 @@ class snake
     popMatrix();
   }
   
-
   public void Move(int dir)
   {
     Dir = ((Dir & 1) != (dir & 1))? dir : Dir;
@@ -76,16 +72,11 @@ class snake
     NodeY[Head] = (newY + height) % height;
   }
   
-  
   public void Grow(int amt)
   { Size = (int) constrain(Size + amt, 2, MaxSize); }
   
-  
   public boolean HeadTouch(int x, int y)
-  {
-    return (HeadX() == x) && (HeadY() == y); 
-  }
-  
+  { return (HeadX() == x) && (HeadY() == y); }
   
   public int BodyTouch(int x, int y)
   {
