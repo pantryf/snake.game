@@ -8,7 +8,7 @@ int MoveSpeed = 10;
 void action_Init()
 {
   MoveDir = 0;
-  Snake = new snake(color(220, 160, 160), color(150, 200, 150), 10);
+  Snake = new snake("", color(220, 160, 160), 10);
   Snake.Init(305, 105, MoveDir);
   Food = new food(105, 105);
 }

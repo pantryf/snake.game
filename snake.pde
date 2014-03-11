@@ -1,21 +1,31 @@
 class snake
 {
+  String Name;
+  int Type, Score;
+  boolean ShowName;
   int[] NodeX, NodeY;
   int Head, Size, Dir;
-  color HeadClr, BodyClr; 
+  color HeadClr, BodyClr;
+  
   final int Weight = 10;
   final int MaxSize = 256;
   final int MaxIndx = MaxSize - 1;
+  final color TongClr = color(255, 100, 150);
   final int[] StepX = {Weight, 0, -Weight, 0};
   final int[] StepY = {0, Weight, 0, -Weight};
+  
   // draw snake tongue
-  public snake(color headClr, color bodyClr, int size)
+  public snake(String name, int type, int size)
   {
     Dir = 0;
     Head = 0;
+    Score = 0;
+    Name = name;
     Size = size;
-    HeadClr = headClr;
-    BodyClr = bodyClr;
+    ShowName = true;
+    Type = type >> 24;
+    HeadClr = type | 0xFF000000;
+    BodyClr = (~type) | 0xFF000000;
     NodeX = new int[MaxSize];
     NodeY = new int[MaxSize];
   }
@@ -50,8 +60,11 @@ class snake
       ellipse(NodeX[ptr], NodeY[ptr], Weight, Weight);
       ptr = (ptr+1) & MaxIndx;
     }
-    // head
     pushMatrix();
+    // tongue
+    stroke(TongClr);
+    strokeWeight(1);
+    // head
     fill(HeadClr);
     translate(HeadX(), HeadY());
     rotate(HALF_PI * Dir);
