@@ -2,7 +2,7 @@ class food
 {
   int X, Y;
   final int Score = 1;
-  final int Weight = 8;
+  final int Weight = 16;
   
   
   public food(int x, int y)

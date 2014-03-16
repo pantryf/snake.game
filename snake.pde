@@ -1,8 +1,6 @@
 class snake
 {
-  String Name;
-  int Type, Score;
-  boolean ShowName;
+  String Type;
   int[] NodeX, NodeY;
   int Head, Size, Dir;
   color HeadClr, BodyClr;
