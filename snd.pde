@@ -5,6 +5,12 @@ Minim minim = new Minim(this);
 HashMap<String, AudioPlayer> Snd = new HashMap();
 
 
+// add a specific sound
+void snd_Load(String id, AudioPlayer snd)
+{
+  Snd.put(id, snd);
+}
+
 // load a specific sound
 void snd_Load(String id, String file)
 {
@@ -17,12 +23,22 @@ void snd_Load(XML xml)
 {
   // get all snd tags
   XML[] sndXml = xml.getChildren("snd");
-  // load all sounds mentioned
+  // load unreferenced sounds
   for(int i=0; i<sndXml.length; i++)
   {
     String id = sndXml[i].getString("id");
     String file = sndXml[i].getString("file");
+    String ref = sndXml[i].getString("ref");
+    if(!str_Empty(ref)) continue;
     snd_Load(id, file);
+  }
+  // load referenced sounds
+  for(int i=0; i<sndXml.length; i++)
+  {
+    String id = sndXml[i].getString("id");
+    String ref = sndXml.getString("ref");
+    if(str_Empty(ref)) continue;
+    snd_Load(id, snd(ref));
   }
 }
 

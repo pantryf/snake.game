@@ -20,12 +20,22 @@ void img_Load(XML xml)
 {
   // get all img tags
   XML[] imgXml = xml.getChildren("img");
-  // load all images mentioned
+  // load unreferenced images
   for(int i=0; i<imgXml.length; i++)
   {
     String id = imgXml[i].getString("id");
     String file = imgXml[i].getString("file");
+    String ref = imgXml[i].getString("ref");
+    if(!str_Empty(ref)) continue;
     img_Load(id, file);
+  }
+  // load referenced images
+  for(int i=0; i<imgXml.length; i++)
+  {
+    String id = imgXml[i].getString("id");
+    String ref = imgXml[i].getString("ref");
+    if(str_Empty(ref)) continue;
+    img_Load(id, img(ref));
   }
 }
 
