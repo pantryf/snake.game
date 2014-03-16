@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<snakes>
+
+<img id="" file="" />
+<snd id="" file="" />
+<anim id="" rate="">
+	<img id="" file="" />
+	<img id="" file="" />
+	<img id="" file="" />
+	<img id="" file="" />
+	<img id="" file="" />
+	<img id="" file="" />
+</anim>
+<snake id="">
+	<state id="">
+	</state>
+</snake>
+</snakes>
