@@ -1,3 +1,4 @@
+// | Action Center |
 snake Snake;
 food Food;
 int Score;
