@@ -1,8 +1,8 @@
 class food
 {
-  int X, Y;
-  final int Score = 1;
-  final int Weight = 16;
+  String Anim;
+  
+  int Score;
   
   
   public food(int x, int y)
@@ -24,15 +24,5 @@ class food
   
   public boolean Touch(int x, int y)
   { return (X == x) && (Y == y); }
-}
-
-
-class rat extends food
-{
-  final int Score = 2;
-  public rat(int x, int y)
-  {
-    super(x, y);
-  }
 }
 
