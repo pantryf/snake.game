@@ -2,6 +2,12 @@
 HashMap<String, region> Area = new HashMap();
 
 
+// add a specific area
+void area_Load(String id, region area)
+{
+  Area.put(id, area);
+}
+
 // load a specific area
 void area_Load(String id, int[] x1, int[] y1, int[] x2, int[] y2)
 {
@@ -18,6 +24,8 @@ void area_Load(XML xml)
   for(int i=0; i<areaXml.length; i++)
   {
     String id = areaXml[i].getString("id");
+    String ref = areaXml[i].getString("ref");
+    if(!str_Empty(ref)) continue;
     XML[] rectXml = areaXml[i].getChildren("rect");
     int[] x1 = new int[rectXml.length];
     int[] y1 = new int[rectXml.length];
@@ -31,6 +39,13 @@ void area_Load(XML xml)
       y2[j] = rectXml[j].getInt("y2");
     }
     area_Load(id, x1, y1, x2, y2);
+  }
+  for(int i=0; i<areaXml.length; i++)
+  {
+    String id = areaXml[i].getString("id");
+    String ref = areaXml[i].getString("ref");
+    if(str_Empty(ref)) continue;
+    area_Load(id, area(ref));
   }
 }
 

@@ -18,10 +18,10 @@ class snake
     Dir = 0;
     Head = 0;
     Score = 0;
-    Name = name;
+    // Name = name;
     Size = size;
-    ShowName = true;
-    Type = type >> 24;
+    // ShowName = true;
+    // Type = type >> 24;
     HeadClr = type | 0xFF000000;
     BodyClr = (~type) | 0xFF000000;
     NodeX = new int[MaxSize];

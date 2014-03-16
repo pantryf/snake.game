@@ -36,7 +36,7 @@ void snd_Load(XML xml)
   for(int i=0; i<sndXml.length; i++)
   {
     String id = sndXml[i].getString("id");
-    String ref = sndXml.getString("ref");
+    String ref = sndXml[i].getString("ref");
     if(str_Empty(ref)) continue;
     snd_Load(id, snd(ref));
   }

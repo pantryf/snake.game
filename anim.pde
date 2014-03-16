@@ -2,6 +2,12 @@
 HashMap<String, animation> Anim = new HashMap();
 
 
+// add a specific animation
+void anim_Load(String id, animation anim)
+{
+  Anim.put(id, anim);
+}
+
 // load a specific animation
 void anim_Load(String id, PImage[] img, int[] wait, boolean loop)
 {
@@ -18,6 +24,8 @@ void anim_Load(XML xml)
   for(int i=0; i<animXml.length; i++)
   {
     String id = animXml[i].getString("id");
+    String ref = animXml[i].getString("ref");
+    if(!str_Empty(ref)) continue;
     boolean loop = Boolean.parseBoolean(animXml[i].getString("loop"));
     XML[] imgXml = animXml[i].getChildren("img");
     PImage[] img = new PImage[imgXml.length];
@@ -35,6 +43,13 @@ void anim_Load(XML xml)
       }
     }
     anim_Load(id, img, wait, loop);
+  }
+  for(int i=0; i<animXml.length; i++)
+  {
+    String id = animXml[i].getString("id");
+    String ref = animXml[i].getString("ref");
+    if(str_Empty(ref)) continue;
+    anim_Load(id, anim(ref));
   }
 }
 
