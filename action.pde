@@ -11,7 +11,7 @@ void action_Init()
   MoveDir = 0;
   Snake = new snake("", color(220, 160, 160), 10);
   Snake.Init(305, 105, MoveDir);
-  Food = new food(105, 105);
+  // Food = new food(105, 105);
 }
 
 
@@ -20,8 +20,8 @@ void action_Update()
   if(frameCount % MoveSpeed == 0)
     Snake.Move(MoveDir);
   Snake.Draw();
-  Food.Draw();
-  if(Food.Touch(Snake.HeadX(), Snake.HeadY()))
+  // Food.Draw();
+  // if(Food.Touch(Snake.HeadX(), Snake.HeadY()))
   {
     Score++;
     // Food = new Food(random()

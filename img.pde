@@ -2,72 +2,80 @@
 HashMap<String, PImage> Img = new HashMap();
 
 
-// add a specific image
-void img_Load(String id, PImage img)
+// add an image
+PImage img_Add(String id, PImage img)
 {
-  Img.put(id, img);
+  if(!empty(id)) Img.put(id, img);
+  return img;
 }
 
-// load a specific image
-void img_Load(String id, String file)
+// load an image
+PImage img_Load(String id, String file)
 {
   PImage img = loadImage(file);
-  Img.put(id, img);
+  return img_Add(id, img);
 }
 
-// loads images in an xml
-void img_Load(XML xml)
+// load image from xml
+PImage img_Load(XML xml)
+{ 
+  String id = xml.getString("id");
+  String ref = xml.getString("ref");
+  String file = xml.getString("file");
+  if(!empty(ref)) return img_Add(id, Img.get(ref));
+  return img_Load(id, file);
+}
+
+// load images from xml
+PImage[] img_LoadAll(XML[] xml)
 {
-  // get all img tags
-  XML[] imgXml = xml.getChildren("img");
-  // load unreferenced images
-  for(int i=0; i<imgXml.length; i++)
-  {
-    String id = imgXml[i].getString("id");
-    String file = imgXml[i].getString("file");
-    String ref = imgXml[i].getString("ref");
-    if(!str_Empty(ref)) continue;
-    img_Load(id, file);
-  }
-  // load referenced images
-  for(int i=0; i<imgXml.length; i++)
-  {
-    String id = imgXml[i].getString("id");
-    String ref = imgXml[i].getString("ref");
-    if(str_Empty(ref)) continue;
-    img_Load(id, img(ref));
-  }
+  PImage[] img = new PImage[xml.length];
+  for(int i=0; i<xml.length; i++)
+    img[i] = img_Load(xml[i]);
+  return img;
+}
+
+// load images from xml
+PImage[] img_LoadAll(XML xml)
+{
+  return img_LoadAll(xml.getChildren("img"));
 }
 
 
-// free a specific image
-void img_Free(String id)
+// remove an image
+void img_Remove(String id)
 {
   Img.remove(id);
 }
 
-// free images in an xml
-void img_Free(XML xml)
+// remove image in xml
+void img_Remove(XML xml)
 {
-  // get all img tags
-  XML[] imgXml = xml.getChildren("img");
-  // free all images mentioned
-  for(int i=0; i<imgXml.length; i++)
-  {
-    String id = imgXml[i].getString("id");
-    img_Free(id);
-  }
+  String id = xml.getString("id");
+  img_Remove(id);
 }
 
+// remove images in xml
+void img_RemoveAll(XML[] xml)
+{
+  for(int i=0; i<xml.length; i++)
+    img_Remove(xml[i]);
+}
 
-// clears all images
+// remove images in xml
+void img_RemoveAll(XML xml)
+{
+  img_RemoveAll(xml.getChildren("img"));
+}
+
+// clear all images
 void img_Clear()
 {
   Img.clear();
 }
 
 
-// return an image
+// get an image
 PImage img(String id)
 {
   return Img.get(id);

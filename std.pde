@@ -1,5 +1,5 @@
 // | Standard Functions |
-boolean str_Empty(String str)
+boolean empty(String str)
 {
   return (str == null) || (str == "");
 }

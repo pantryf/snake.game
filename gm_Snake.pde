@@ -4,7 +4,6 @@
  * A game that involves a snake and its food.
  * 
  */
- // 2hrs coding tear begins at 16.3.2014, 5:00 PM
 void setup()
 {
   size(800, 600);

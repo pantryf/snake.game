@@ -25,7 +25,7 @@ void anim_Load(XML xml)
   {
     String id = animXml[i].getString("id");
     String ref = animXml[i].getString("ref");
-    if(!str_Empty(ref)) continue;
+    if(!empty(ref)) continue;
     boolean loop = Boolean.parseBoolean(animXml[i].getString("loop"));
     XML[] imgXml = animXml[i].getChildren("img");
     PImage[] img = new PImage[imgXml.length];
@@ -35,11 +35,11 @@ void anim_Load(XML xml)
       String imId = imgXml[j].getString("id");
       String file = imgXml[j].getString("file");
       wait[j] = imgXml[j].getInt("wait");
-      if(str_Empty(file)) img[j] = Img.get(imId);
+      if(empty(file)) img[j] = Img.get(imId);
       else
       {
         img[j] = loadImage(file);
-        if(!str_Empty(imId)) img_Load(imId, img[j]);
+        if(!empty(imId)) img_Add(imId, img[j]);
       }
     }
     anim_Load(id, img, wait, loop);
@@ -48,7 +48,7 @@ void anim_Load(XML xml)
   {
     String id = animXml[i].getString("id");
     String ref = animXml[i].getString("ref");
-    if(str_Empty(ref)) continue;
+    if(empty(ref)) continue;
     anim_Load(id, anim(ref));
   }
 }
@@ -93,6 +93,21 @@ void anim(String id, int x, int y)
   Anim.get(id).Draw(x, y);
 }
 
+
+// anim template
+class animT
+{
+  int[] Wait;
+  PImage[] Img;
+  boolean Loop;
+  
+  public animT(PImage[] img, int[] wait, boolean loop)
+  {
+    Img = img;
+    Wait = wait;
+    Loop = loop;
+  }
+}
 
 // animation class
 class animation

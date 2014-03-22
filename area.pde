@@ -25,7 +25,7 @@ void area_Load(XML xml)
   {
     String id = areaXml[i].getString("id");
     String ref = areaXml[i].getString("ref");
-    if(!str_Empty(ref)) continue;
+    if(!empty(ref)) continue;
     XML[] rectXml = areaXml[i].getChildren("rect");
     int[] x1 = new int[rectXml.length];
     int[] y1 = new int[rectXml.length];
@@ -44,7 +44,7 @@ void area_Load(XML xml)
   {
     String id = areaXml[i].getString("id");
     String ref = areaXml[i].getString("ref");
-    if(str_Empty(ref)) continue;
+    if(empty(ref)) continue;
     area_Load(id, area(ref));
   }
 }
@@ -108,6 +108,14 @@ class region
       if(x>=X1[i] && x<=X2[i] && y>=Y1[i] && y<=Y2[i])
         return true;
     return false;
+  }
+  
+  boolean Inside(region rgn)
+  {
+    for(int i=0; i<X1.length; i++)
+    {
+      if(Inside
+    }
   }
   
   boolean Outside(int x, int y)

@@ -1,14 +1,13 @@
 class food
 {
-  String Anim;
-  
+  String Type;
+  region Size;
   int Score;
   
-  
-  public food(int x, int y)
+  public food(String type, region Size)
   {
-    X = x;
-    Y = y;
+    // X = x;
+    // Y = y;
   }
   
   
@@ -18,7 +17,7 @@ class food
     strokeWeight(1);
     int frame = (frameCount & 0x7F) << 1;
     fill(abs(128 - frame));
-    rect(X, Y, Weight, Weight);
+    // rect(X, Y, Weight, Weight);
   }
   
   
